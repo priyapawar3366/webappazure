@@ -1,8 +1,14 @@
+using webappazure.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages();
 
+
+
+// Add services to the container.
+builder.Services.AddTransient<IProductService, ProductService>();
+
+builder.Services.AddRazorPages();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

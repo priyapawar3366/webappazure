@@ -8,11 +8,19 @@ namespace webappazure.Pages
     public class IndexModel : PageModel
     {
 
-        public List<Products> productlist;
+        private readonly IProductService _productService;
+
+        public IndexModel(IProductService productService)
+        {
+            _productService = productService;
+        }
+
+        public List<Products> Products;
         public void OnGet()
         {
-            ProductService productService = new ProductService();
-            productlist = productService.GetProducts();
+            Products = _productService.GetProducts();
+
         }
+        
     }
 }

@@ -3,24 +3,19 @@ using webappazure.Model;
 
 namespace webappazure.Services
 {
-    public class ProductService
-    {
-        private static string db_source = "sqldemo3366.database.windows.net";
-        private static string db_user = "sql";
-        private static string db_password = "demouser@1234";
-        private static string db_database = "demodb";
 
+    public class ProductService : IProductService
+    {
+        private readonly IConfiguration _configuration;
+        public ProductService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         private SqlConnection GetConnection()
         {
 
-            var _builder = new SqlConnectionStringBuilder();
-            _builder.DataSource = db_source;
-            _builder.UserID = db_user;
-            _builder.Password = db_password;
-            _builder.InitialCatalog = db_database;
-            return new SqlConnection(_builder.ConnectionString);
+            return new SqlConnection(_configuration.GetConnectionString("SQLConnection"));
         }
-
         public List<Products> GetProducts()
         {
             List<Products> _product_lst = new List<Products>();
@@ -50,4 +45,5 @@ namespace webappazure.Services
         }
 
     }
+
 }
